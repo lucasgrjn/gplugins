@@ -140,7 +140,7 @@ def get_sparameters_fdtdz(
 
     # Check the direction of the ports
     ports_fwd = tuple(
-      True if c[port].orientation in [0, 90] else False for port in c.ports
+      True if component[port].orientation in [0, 90] else False for port in component.ports
     )
 
     return scatter(
