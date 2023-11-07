@@ -95,7 +95,7 @@ def get_mode_port(
     else:
         pos = int(np.where(np.isclose(yarray, port.y, atol=nm_per_pixel / 2))[0][0] / 2)
 
-    return wavevector, excitation[0, :, :, :, :, 0], pos, epsilon_port
+    return wavevector, excitation[:, :, :, :, :, 0], pos, epsilon_port
 
 
 def plot_mode(
