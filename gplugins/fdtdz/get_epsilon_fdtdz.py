@@ -20,13 +20,13 @@ material_name_to_fdtdz = {
 
 def create_physical_grid(xmin, ymin, zmin, epsilon, nm_per_pixel):
     _, xinds, yinds, zinds = np.shape(epsilon)
-    xmax = xmin + xinds * nm_per_pixel * 1e-3 * 2  # Factor of 2 from Yee grid?
-    ymax = ymin + yinds * nm_per_pixel * 1e-3 * 2  # Factor of 2 from Yee grid?
+    xmax = xmin + xinds * nm_per_pixel * 1e-3
+    ymax = ymin + yinds * nm_per_pixel * 1e-3
     zmax = zmin + zinds * nm_per_pixel * 1e-3
     step = nm_per_pixel * 1e-3
-    xarray = np.arange(xmin, xmax + step / 2, nm_per_pixel * 1e-3)
-    yarray = np.arange(ymin, ymax + step / 2, nm_per_pixel * 1e-3)
-    zarray = np.arange(zmin, zmax + step / 2, nm_per_pixel * 1e-3)
+    xarray = np.arange(xmin, xmax + step, nm_per_pixel * 1e-3)
+    yarray = np.arange(ymin, ymax + step, nm_per_pixel * 1e-3)
+    zarray = np.arange(zmin, zmax + step, nm_per_pixel * 1e-3)
     return xarray, yarray, zarray
 
 
@@ -92,8 +92,9 @@ def component_to_epsilon_pjz(
         ]
 
         # Get the epsilon matrix
+        # _epsilon wait a doubled resolution
         i = component.to_np(
-            nm_per_pixel=nm_per_pixel,
+            nm_per_pixel=nm_per_pixel / 2,
             layers=current_layers,
             values=current_indices,
             pad_width=0,
@@ -168,7 +169,7 @@ def plot_epsilon(
     fig = plt.figure(figsize=figsize)
     if x is not None:
         x_index = int(
-            np.where(np.isclose(xarray, x, atol=nm_per_pixel * 1e-3 / 2))[0][0] / 2
+            np.where(np.isclose(xarray, x, atol=nm_per_pixel * 1e-3))[0][0]
         )  # factor of 2 from Yee grid?
         im = plt.imshow(
             epsilon[0, x_index, :, :].transpose(),
@@ -180,7 +181,7 @@ def plot_epsilon(
         add_plot_labels("y", "z", "Epsilon Distribution at x = ", x)
     elif y is not None:
         y_index = int(
-            np.where(np.isclose(yarray, y, atol=nm_per_pixel * 1e-3 / 2))[0][0] / 2
+            np.where(np.isclose(yarray, y, atol=nm_per_pixel * 1e-3))[0][0]
         )  # factor of 2 from Yee grid?
         im = plt.imshow(
             epsilon[1, :, y_index, :].transpose(),
@@ -191,7 +192,7 @@ def plot_epsilon(
         )
         add_plot_labels("x", "z", "Epsilon Distribution at y = ", y)
     else:
-        z_index = np.where(np.isclose(zarray, z, atol=nm_per_pixel * 1e-3 / 2))[0][0]
+        z_index = np.where(np.isclose(zarray, z, atol=nm_per_pixel * 1e-3))[0][0]
         im = plt.imshow(
             epsilon[0, :, :, z_index].transpose(),
             origin="lower",

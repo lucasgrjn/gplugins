@@ -41,9 +41,9 @@ def get_epsilon_port(
     # z_range_indices = np.where((zcoords >= (z - port_size_z)) & (zcoords <= (z + port_size_z)))
     sgn = 1 if port.orientation in [180, 270] else -1
     x_index = (
-        int(np.where(np.isclose(xarray, x, atol=nm_per_pixel * 1e-3 / 2))[0][0] / 2)
+        int(np.where(np.isclose(xarray, x, atol=nm_per_pixel * 1e-3))[0][0])
         + sgn * port_offset
-    )  # factor of 2 from Yee grid?
+    )
     port_slice = (
         epsilon[:, x_index : x_index + 1, :, :]
         if sgn == 1
