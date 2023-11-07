@@ -138,12 +138,18 @@ def get_sparameters_fdtdz(
         excitations.append(excitation)
         positions.append(pos)
 
+    # Check the direction of the ports
+    ports_fwd = tuple(
+      True if c[port].orientation in [0, 90] else False for port in c.ports
+    )
+
     return scatter(
         epsilon=epsilon,
         omega=jnp.array([omega]),
         modes=tuple(excitations),
         betas=tuple(wavevector),
         pos=tuple(positions),
+        is_fwd=ports_fwd,
         sim_params=SimParams(tt=tt, omega_range=(omega, omega)),
     )
 
