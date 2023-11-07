@@ -126,7 +126,7 @@ def get_sparameters_fdtdz(
     excitations = []
     positions = []
     for portname in optical_port_names:
-        excitation, pos, epsilon_port = get_mode_port(
+        wavevector, excitation, pos, epsilon_port = get_mode_port(
             omega=omega,
             port=component.ports[portname],
             epsilon=epsilon,
@@ -142,6 +142,7 @@ def get_sparameters_fdtdz(
         epsilon=epsilon,
         omega=jnp.array([omega]),
         modes=tuple(excitations),
+        betas=tuple(wavevector),
         pos=tuple(positions),
         sim_params=SimParams(tt=tt, omega_range=(omega, omega)),
     )

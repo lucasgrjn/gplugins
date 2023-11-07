@@ -83,7 +83,7 @@ def get_mode_port(
     )
 
     # Excitation profile
-    _wavevector, excitation, _err, _iters = mode(
+    wavevector, excitation, _err, _iters = mode(
         epsilon=epsilon_port,
         omega=omega,
         num_modes=1,
@@ -95,7 +95,7 @@ def get_mode_port(
     else:
         pos = int(np.where(np.isclose(yarray, port.y, atol=nm_per_pixel / 2))[0][0] / 2)
 
-    return excitation[0, :, :, :, :, 0], pos, epsilon_port
+    return wavevector, excitation[0, :, :, :, :, 0], pos, epsilon_port
 
 
 def plot_mode(
@@ -223,7 +223,7 @@ if __name__ == "__main__":
     )
 
     omega = 0.3
-    excitation, pos, epsilon_port = get_mode_port(
+    wavevector, excitation, pos, epsilon_port = get_mode_port(
         omega=omega,
         port=c.ports["o1"],
         epsilon=epsilon,
