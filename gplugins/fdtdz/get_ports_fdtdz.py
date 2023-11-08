@@ -91,9 +91,9 @@ def get_mode_port(
 
     # Position
     if port.orientation in [0, 180]:
-        pos = int(np.where(np.isclose(xarray, port.x, atol=nm_per_pixel / 2))[0][0] / 2)
+        pos = int(np.where(np.isclose(xarray, port.x, atol=nm_per_pixel * 1e-3))[0][0])
     else:
-        pos = int(np.where(np.isclose(yarray, port.y, atol=nm_per_pixel / 2))[0][0] / 2)
+        pos = int(np.where(np.isclose(yarray, port.y, atol=nm_per_pixel * 1e-3))[0][0])
 
     return wavevector, excitation[:, :, :, :, :, 0], pos, epsilon_port
 
