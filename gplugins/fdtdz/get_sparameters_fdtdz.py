@@ -122,7 +122,7 @@ def get_sparameters_fdtdz(
     )
 
     # Setup modes sources/monitors
-    omega = 1 / wavelength
+    omega = 2 * jnp.pi / (wavelength * 1e3 / nm_per_pixel)
     excitations = []
     positions = []
     for portname in optical_port_names:
