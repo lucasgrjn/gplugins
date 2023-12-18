@@ -14,7 +14,7 @@ classifiers = [
   "Operating System :: OS Independent"
 ]
 dependencies = [
-  "gdsfactory[cad]>=7.8.1,<7.9",
+  "gdsfactory[cad]>=7.8.1",
   "pint"
 ]
 description = "gdsfactory plugins"
@@ -23,7 +23,7 @@ license = {file = "LICENSE"}
 name = "gplugins"
 readme = "README.md"
 requires-python = ">=3.10"
-version = "0.8.5"
+version = "0.9.8"
 
 [project.optional-dependencies]
 dagster = ["dagster", "dagit"]
@@ -44,7 +44,7 @@ dev = [
 devsim = [
   "devsim",
   "pyvista<=0.40",
-  "tidy3d>=2.4.0,<2.5.0"
+  "tidy3d==2.5.0"
 ]
 docs = [
   "jupytext",
@@ -53,8 +53,8 @@ docs = [
   "pyvista[jupyter]<=0.40"
 ]
 femwell = [
-  "femwell>=0.1.6,<0.8.5",
-  "meshwell>=1.0.0,<1.1.0"
+  "femwell>=0.1.6,<0.2",
+  "meshwell>=1.0.0,<1.1"
 ]
 gmsh = [
   "gmsh",
@@ -68,14 +68,14 @@ gmsh = [
   "meshwell>=1.0.0,<1.1.0"
 ]
 klayout = [
-  "kfactory[git,ipy]>=0.9.3,<0.10",
+  "kfactory[git,ipy]>=0.9.3,<0.11",
   "pyvis<=0.3.1"
 ]
 meow = [
   "jaxlib",
   "jax",
   "meow-sim>0.8,<0.9",
-  "tidy3d>=2.4.0,<2.5.0"
+  "tidy3d==2.5.0"
 ]
 sax = [
   "jaxlib",
@@ -88,17 +88,13 @@ schematic = [
   "natsort"
 ]
 tidy3d = [
-  "tidy3d>=2.4.0,<2.5.0"
+  "tidy3d==2.5.0",
+  "meshio",
+  "meshwell>=1.0.0,<1.1"
 ]
 vlsir = [
-  "vlsir>=4.0.0,<5.0.0",
-  "vlsirtools>=4.0.0,<5.0.0"
-]
-web = [
-  "jinja2",
-  "python-multipart",
-  "fastapi>=0.102.0,<1",
-  "uvicorn[standard]"
+  "vlsir>=4.0.0,<6.0.0",
+  "vlsirtools>=4.0.0,<6.0.0"
 ]
 
 [tool.black]
@@ -170,6 +166,7 @@ select = [
 ]
 
 [tool.ruff.per-file-ignores]
+"docs/notebooks/*.py" = ["F821", 'E402', 'F405', 'F403']
 "docs/notebooks/meep_01_sparameters.py" = ["F821", 'E402']
 "docs/notebooks/tcad_02_analytical_process.py" = ["F821", 'E402', 'F405', 'F403']
 
@@ -210,7 +207,7 @@ message_template = "Bump to {new_version}"
 tag_template = "v{new_version}"
 
 [tool.tbump.version]
-current = "0.8.5"
+current = "0.9.8"
 regex = '''
   (?P<major>\d+)
   \.
